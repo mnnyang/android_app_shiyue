@@ -23,7 +23,6 @@
                     android:id="@+id/iv_page_image"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:paddingBottom="2dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img1"/>
 

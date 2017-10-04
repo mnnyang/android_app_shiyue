@@ -1,4 +1,4 @@
-package com.mnnyang.data;
+package com.mnnyang.data.bean;
 
 /**
  * Created by mnnyang on 17-10-3.

@@ -12,9 +12,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mnnyang.R;
 import com.mnnyang.app.Constant;
+import com.mnnyang.data.bean.DayPoetry;
+import com.mnnyang.data.source.DayPoetryDataSource;
+import com.mnnyang.data.source.DayPoetryRepository;
+import com.mnnyang.data.source.Injection;
 import com.mnnyang.utils.LogUtils;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by mnnyang on 17-10-3.
@@ -22,18 +31,17 @@ import com.mnnyang.utils.LogUtils;
 
 public class HomePageFragment extends Fragment {
 
-    private Bitmap mBitmap;
-    private int mId;
     private static Typeface mTypeFace;
+    private Calendar mDate;
 
     public HomePageFragment() {
 
     }
 
-    public static HomePageFragment newInstance(int id) {
+    public static HomePageFragment newInstance(Calendar date) {
 
         Bundle args = new Bundle();
-        args.putInt(Constant.KEY_PAGE_ID, id);
+        args.putSerializable(Constant.KEY_DATE, date);
 
         HomePageFragment fragment = new HomePageFragment();
         fragment.setArguments(args);
@@ -45,28 +53,8 @@ public class HomePageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         LogUtils.d(this, "onCreate");
 
-        Bundle arguments = getArguments();
-        mId = arguments.getInt(Constant.KEY_PAGE_ID);
-        if (false) {
+        mDate = (Calendar) getArguments().getSerializable(Constant.KEY_DATE);
 
-            switch (mId) {
-                case 0:
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img1);
-                    break;
-                case 2:
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img1);
-                    break;
-                case 3:
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img3);
-                    break;
-                case 4:
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img4);
-                    break;
-                case 5:
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img5);
-                    break;
-            }
-        }
         if (mTypeFace == null) {
             mTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/方正中宋简体.ttf");
         }
@@ -76,9 +64,9 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home_page, container, false);
-        ImageView iv = root.findViewById(R.id.iv_page_image);
-        TextView tvPoetry = root.findViewById(R.id.tv_poetry);
-        TextView tvTitle = root.findViewById(R.id.tv_poetry_title);
+        final ImageView ivPageImage = root.findViewById(R.id.iv_page_image);
+        final TextView tvPoetry = root.findViewById(R.id.tv_poetry);
+        final TextView tvTitle = root.findViewById(R.id.tv_poetry_title);
         TextView tvNongli = root.findViewById(R.id.tv_nongli);
         TextView tvGongli = root.findViewById(R.id.tv_gongli);
 
@@ -104,8 +92,27 @@ public class HomePageFragment extends Fragment {
         tvTitle.setTypeface(mTypeFace);
         tvNongli.setTypeface(mTypeFace);
         tvGongli.setTypeface(mTypeFace);
+//        ivPageImage.setImageResource(R.drawable.img1);
 
-        iv.setImageResource(R.drawable.img1);
+        Injection.provideDayPoetryRepository()
+                .getDayPoetry(mDate, new DayPoetryDataSource.GetTaskCallback() {
+                    @Override
+                    public void onLoaded(DayPoetry dayPoetry) {
+                        if (dayPoetry.getCode() == 200) {
+                            List<DayPoetry.DataBean> data = dayPoetry.getData();
+                            tvTitle.setText(data.get(0).getTitle());
+                            tvPoetry.setText(data.get(0).getContent());
+                            Glide.with(getContext())
+                                    .load(data.get(0).getImg())
+                                    .into(ivPageImage);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+                        e.printStackTrace();
+                    }
+                });
         setHasOptionsMenu(true);
         return root;
     }

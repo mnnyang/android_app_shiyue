@@ -12,4 +12,5 @@ public class Constant {
 
     public static final String TAG_HOME = "tag_home";
     public static final String TAG_ARTICLE = "tag_article";
+    public static final String KEY_DATE = "key_date";
 }

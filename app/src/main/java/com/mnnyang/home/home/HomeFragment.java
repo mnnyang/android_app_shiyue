@@ -16,6 +16,7 @@ import com.mnnyang.adapter.HomeAdapter;
 import com.mnnyang.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -54,7 +55,9 @@ public class HomeFragment extends Fragment {
 
         LogUtils.v(this, "setViewPager");
         for (int i = 0; i < 5; i++) {
-            fragments.add(HomePageFragment.newInstance(i));
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2017,10,3+i);
+            fragments.add(HomePageFragment.newInstance(calendar));
         }
 
         HomeAdapter homeAdapter = new HomeAdapter(getChildFragmentManager(), fragments, null);
