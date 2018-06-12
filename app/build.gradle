@@ -1,17 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
     defaultConfig {
-        applicationId "com.mnnyang.qingshi"
+        applicationId "cn.xxyangyoulin.shiyue"
         minSdkVersion 21
-        targetSdkVersion 22
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -22,15 +20,32 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation 'com.android.support:design:26.1.0'
-    compile 'me.biubiubiu.justifytext:library:1.1'
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //material design
+    implementation 'com.android.support:design:27.1.1'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    //Retrofit通过GSON将结果转换为Bean对象
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    //让Retrofit支持RxJava
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //RxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    //日志拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+//    butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white_fa">#fafafa</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#505050</color>
 
-    <color name="colorPrimary">#333233</color>
-    <color name="colorPrimaryDark">#232323</color>
-    <color name="colorAccent">#ad9d6c</color>
+    <color name="colorBackground">#f0f0f0</color>
+
 </resources>
