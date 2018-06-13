@@ -1,6 +1,10 @@
 package cn.xxyangyoulin.shiyue.util;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +36,22 @@ public class ActivityUtil {
         }
     }
 
-    public static  <T> T checkNotNull(T object, String message) {
+    public static <T> T checkNotNull(T object, String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
         return object;
     }
 
+    /**
+     *
+     */
+    public static void replaceFragmentToActivity(@NonNull FragmentManager fragmentManager,
+                                                 @NonNull Fragment fragment, int frameId) {
+        checkNotNull(fragmentManager, "");
+        checkNotNull(fragment, "");
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(frameId, fragment);
+        transaction.commit();
+    }
 }

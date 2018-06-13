@@ -6,12 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 import cn.xxyangyoulin.shiyue.util.LogUtil;
+import cn.xxyangyoulin.shiyue.util.StatusBarUtil;
 import cn.xxyangyoulin.shiyue.util.ToastUtils;
 
 
@@ -29,8 +32,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogUtil.d(TAG, "onCreate");
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
         ActivityUtil.addActivity(this);
-        ButterKnife.bind(this);
     }
 
     /**
@@ -51,6 +55,22 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(title);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    /**
+     * 默认点击home按钮返回界面
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
