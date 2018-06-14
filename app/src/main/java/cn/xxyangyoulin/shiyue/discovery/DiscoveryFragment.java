@@ -2,13 +2,18 @@ package cn.xxyangyoulin.shiyue.discovery;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -21,7 +26,7 @@ import cn.xxyangyoulin.shiyue.publish.PublishFragment;
 import cn.xxyangyoulin.shiyue.search.SearchFragment;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 
-public class DiscoveryFragment extends BaseLazyFragment {
+public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnMenuItemClickListener {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -50,7 +55,7 @@ public class DiscoveryFragment extends BaseLazyFragment {
     }
 
     private void initToolbar() {
-        mToolbar.inflateMenu(R.menu.toolbar_discovery);
+//        mToolbar.inflateMenu(R.menu.toolbar_discovery);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -72,8 +77,60 @@ public class DiscoveryFragment extends BaseLazyFragment {
             poemsLists.add(new Poem());
         }
 
-        DisCoveryAdapter disCoveryAdapter = new DisCoveryAdapter(R.layout.layout_discovery_item, poemsLists);
+        DisCoveryAdapter disCoveryAdapter = new DisCoveryAdapter(R.layout.layout_discovery_item_vertical, poemsLists);
+
+        View headerLayout = View.inflate(getContext(), R.layout.layout_discovery_item_header, null);
+        View footerLayout = View.inflate(getContext(), R.layout.adapter_normal_footer_item_loading, null);
+
+        headerListener(headerLayout);
+
+        ((AVLoadingIndicatorView) footerLayout.findViewById(R.id.av_loading)).smoothToShow();
+        disCoveryAdapter.setHeader(headerLayout);
+        disCoveryAdapter.setFooter(footerLayout);
         mRecyclerView.setAdapter(disCoveryAdapter);
+    }
+
+    private void headerListener(View headerLayout) {
+        headerLayout.findViewById(R.id.iv_publish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPublish();
+            }
+        });
+
+        headerLayout.findViewById(R.id.iv_filter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupHeaderMenu(v);
+            }
+        });
+
+        headerLayout.findViewById(R.id.layout_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPublish();
+            }
+        });
+    }
+
+    private void openPublish() {
+        PublishFragment fragment = PublishFragment.newInstance();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(android.R.id.content, fragment);
+        transaction.commit();
+    }
+
+    private void popupHeaderMenu(View v) {
+        //创建弹出式菜单对象（最低版本11）
+        PopupMenu popup = new PopupMenu(mContext, v);//第二个参数是绑定的那个view
+        //获取菜单填充器
+        MenuInflater inflater = popup.getMenuInflater();
+        //填充菜单
+        inflater.inflate(R.menu.filter_menu, popup.getMenu());
+        //绑定菜单项的点击事件
+        popup.setOnMenuItemClickListener(DiscoveryFragment.this);
+        //显示(这一行代码不要忘记了)
+        popup.show();
     }
 
     private void search() {
@@ -84,5 +141,11 @@ public class DiscoveryFragment extends BaseLazyFragment {
     private void publish() {
         PublishFragment publishFragment = PublishFragment.newInstance();
         ActivityUtil.replaceFragmentToActivity(getFragmentManager(), publishFragment, android.R.id.content);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        return false;
     }
 }

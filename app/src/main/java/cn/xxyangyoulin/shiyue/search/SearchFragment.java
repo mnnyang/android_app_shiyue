@@ -65,6 +65,7 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
     }
 
     public void close() {
+        super.close();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(0, R.anim.anim_fragment_down);
         transaction.hide(SearchFragment.this);

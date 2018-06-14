@@ -9,22 +9,26 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.base.BaseLazyFragment;
+import cn.xxyangyoulin.shiyue.base.RecyclerBaseAdapter;
 import cn.xxyangyoulin.shiyue.data.bean.Poem;
 import cn.xxyangyoulin.shiyue.main.adapter.MainAdapter;
-import cn.xxyangyoulin.shiyue.publish.PublishFragment;
+import cn.xxyangyoulin.shiyue.poem.PoemFragment;
 import cn.xxyangyoulin.shiyue.search.SearchFragment;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 
-public class MainFragment extends BaseLazyFragment {
+public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapter.ItemClickListener {
 
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
+    private MainAdapter mMainAdapter;
 
     public static MainFragment newInstance() {
 
@@ -69,15 +73,39 @@ public class MainFragment extends BaseLazyFragment {
         ArrayList<Poem> poemsLists = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            poemsLists.add(new Poem());
+            Poem baseBean = new Poem();
+            baseBean.setCode(i);
+            poemsLists.add(baseBean);
         }
 
-        MainAdapter mainAdapter = new MainAdapter(R.layout.layout_main_item, poemsLists);
-        mRecyclerView.setAdapter(mainAdapter);
+        mMainAdapter = new MainAdapter(R.layout.adapter_main_item, poemsLists);
+        View footerLayout = View.inflate(getContext(), R.layout.adapter_normal_footer_item_loading, null);
+        ((AVLoadingIndicatorView) footerLayout.findViewById(R.id.av_loading)).smoothToShow();
+        mMainAdapter.setFooter(footerLayout);
+
+        mMainAdapter.setItemClickListener(this);
+
+        mRecyclerView.setAdapter(mMainAdapter);
     }
 
     private void search() {
         SearchFragment searchFragment = SearchFragment.newInstance();
         ActivityUtil.replaceFragmentToActivity(getFragmentManager(), searchFragment, android.R.id.content);
+    }
+
+    @Override
+    public void onItemClick(View view, RecyclerBaseAdapter.ViewHolder holder) {
+        openPoemDetail(mMainAdapter.getData().get(holder.getAdapterPosition()));
+    }
+
+    private void openPoemDetail(Poem poem) {
+        Toast.makeText(mContext, poem.getCode()+"", Toast.LENGTH_SHORT).show();
+        PoemFragment poemFragment = PoemFragment.newInstance();
+        ActivityUtil.replaceFragmentToActivity(getFragmentManager(), poemFragment, android.R.id.content);
+    }
+
+    @Override
+    public void onItemLongClick(View view, RecyclerBaseAdapter.ViewHolder holder) {
+
     }
 }

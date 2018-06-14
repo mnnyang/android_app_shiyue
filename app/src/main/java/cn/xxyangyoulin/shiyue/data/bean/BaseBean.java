@@ -1,8 +1,5 @@
 package cn.xxyangyoulin.shiyue.data.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public abstract class BaseBean {
 
     /**
@@ -18,16 +15,18 @@ public abstract class BaseBean {
         return code;
     }
 
-    public void setCode(int code) {
+    public BaseBean setCode(int code) {
         this.code = code;
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public BaseBean setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
     @Override
