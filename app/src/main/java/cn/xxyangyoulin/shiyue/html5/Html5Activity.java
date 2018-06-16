@@ -144,7 +144,7 @@ public class Html5Activity extends BaseActivity {
             CookieManager cookieManager = CookieManager.getInstance();
 
             /*保存cookie*/
-            toast( cookieManager.getCookie(url));
+            toast(cookieManager.getCookie(url));
             Cache.newInstance().tempCookie = cookieManager.getCookie(url);
         }
 

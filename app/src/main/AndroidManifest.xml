@@ -36,12 +36,6 @@
             android:name=".html5.Html5Activity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
-        <activity
-            android:name=".login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
     </application>
 
 </manifest>

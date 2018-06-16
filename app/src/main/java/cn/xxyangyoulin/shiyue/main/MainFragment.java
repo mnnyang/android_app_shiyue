@@ -1,7 +1,12 @@
 package cn.xxyangyoulin.shiyue.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +21,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 
 import cn.xxyangyoulin.shiyue.R;
+import cn.xxyangyoulin.shiyue.app.Constants;
 import cn.xxyangyoulin.shiyue.base.BaseLazyFragment;
 import cn.xxyangyoulin.shiyue.base.RecyclerBaseAdapter;
 import cn.xxyangyoulin.shiyue.data.bean.Poem;
@@ -23,8 +29,12 @@ import cn.xxyangyoulin.shiyue.main.adapter.MainAdapter;
 import cn.xxyangyoulin.shiyue.poem.PoemFragment;
 import cn.xxyangyoulin.shiyue.search.SearchFragment;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
+import cn.xxyangyoulin.shiyue.util.StatusUtil;
 
 public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapter.ItemClickListener {
+
+    private BroadcastReceiver mLoginBroadcastReceiver;
+    private LocalBroadcastManager mBroadcastManager;
 
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
@@ -53,6 +63,27 @@ public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapte
     protected void initData() {
         initToolbar();
         initRecyclerView();
+        loginListener();
+    }
+
+
+    /**
+     * 登录监听
+     */
+    private void loginListener() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.INTENT_LOGIN_COMPLETED);
+        mLoginBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                StatusUtil.status(StatusUtil.Status.SUCCEED,
+                        mRootView.findViewById(R.id.layout_content),
+                        mRootView.findViewById(R.id.layout_state));
+            }
+        };
+
+        mBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        mBroadcastManager.registerReceiver(mLoginBroadcastReceiver, intentFilter);
     }
 
     private void initToolbar() {
@@ -101,7 +132,7 @@ public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapte
     }
 
     private void openPoemDetail(Poem poem) {
-        Toast.makeText(mContext, poem.getCode()+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, poem.getCode() + "", Toast.LENGTH_SHORT).show();
         PoemFragment poemFragment = PoemFragment.newInstance();
         ActivityUtil.replaceFragmentToActivity(getFragmentManager(), poemFragment, android.R.id.content);
     }
@@ -109,5 +140,13 @@ public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapte
     @Override
     public void onItemLongClick(View view, RecyclerBaseAdapter.ViewHolder holder) {
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        /*取消监听*/
+        mBroadcastManager.unregisterReceiver(mLoginBroadcastReceiver);
     }
 }

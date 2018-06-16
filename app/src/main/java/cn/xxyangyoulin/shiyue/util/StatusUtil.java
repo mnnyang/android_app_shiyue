@@ -14,7 +14,7 @@ public class StatusUtil {
         public static final int ERROR = 2;
     }
 
-    public static void status(int status, View content, View statusLayout, String msg) {
+    public static void status(int status, View content, View statusLayout) {
         switch (status) {
             case Status.SUCCEED:
                 statusLayout.setVisibility(View.GONE);
@@ -24,15 +24,18 @@ public class StatusUtil {
             case Status.ERROR:
                 statusLayout.setVisibility(View.VISIBLE);
                 content.setVisibility(View.GONE);
-                TextView tvMsg = statusLayout.findViewById(R.id.tv_status_msg);
-                if (tvMsg != null) {
-                    tvMsg.setText(msg);
-                }
                 break;
-
-
         }
     }
+
+    public static void status(int status, View content, View statusLayout, String msg) {
+        status(status, content, statusLayout);
+        TextView tvMsg = statusLayout.findViewById(R.id.tv_status_msg);
+        if (tvMsg != null) {
+            tvMsg.setText(msg);
+        }
+    }
+
 
     public static void status(int status, View content, View statusLayout, String msg,
                               String btnName, View.OnClickListener clickListener) {
