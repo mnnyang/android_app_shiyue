@@ -2,10 +2,18 @@ package cn.xxyangyoulin.shiyue.search;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +26,9 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
 
     private TagContainerView mTagContainerView;
     private ImageView mIvExit;
+    private RecyclerView mRecyclerViewHistory;
+    private ArrayList<String> mHistoryList;
+    private EditText mEtSearch;
 
     public static SearchFragment newInstance() {
 
@@ -37,7 +48,9 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
     @Override
     public void initView() {
         super.initView();
+        mEtSearch = rootView.findViewById(R.id.et_search);
         mTagContainerView = rootView.findViewById(R.id.hot_search_container);
+        mRecyclerViewHistory = rootView.findViewById(R.id.recycler_view_history);
         mIvExit = rootView.findViewById(R.id.iv_exit);
     }
 
@@ -52,7 +65,10 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
             textView.setText(hotList.get(i));
             mTagContainerView.addView(textView);
         }
+
+        initSearchHistory();
     }
+
 
     @Override
     public void initListener() {
@@ -62,7 +78,39 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
                 onBackPressed();
             }
         });
+
+        mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Toast.makeText(activity, "fuck", Toast.LENGTH_SHORT).show();
+
+                // 先隐藏键盘
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideInput(getContext(), mEtSearch);
+                }
+                String keyWord = mEtSearch.getText().toString().trim();
+                return false;
+            }
+        });
     }
+
+    /**
+     * 搜索历史
+     */
+    private void initSearchHistory() {
+        mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+        mHistoryList = new ArrayList<>();
+
+        /**模拟数据*/
+        for (int i = 0; i < 5; i++) {
+            mHistoryList.add("搜索历史模拟");
+        }
+
+        HistoryAdapter historyAdapter = new HistoryAdapter(R.layout.adapter_search_history, mHistoryList);
+        mRecyclerViewHistory.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerViewHistory.setAdapter(historyAdapter);
+    }
+
 
     public void close() {
         super.close();

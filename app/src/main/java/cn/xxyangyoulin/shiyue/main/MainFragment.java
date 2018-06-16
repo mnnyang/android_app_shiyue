@@ -44,6 +44,8 @@ public class MainFragment extends BaseLazyFragment implements RecyclerBaseAdapte
         mRootView = inflater.inflate(R.layout.fragment_main, null);
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
         mToolbar = mRootView.findViewById(R.id.toolbar);
+
+
         return mRootView;
     }
 

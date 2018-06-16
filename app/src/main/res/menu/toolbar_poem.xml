@@ -2,10 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/toolbar_like"
+        android:icon="@drawable/selector_ic_praise"
+        android:title="喜欢"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/toolbar_share"
         android:icon="@drawable/ic_reply_black_24dp"
         android:title="分享"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>

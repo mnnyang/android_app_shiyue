@@ -1,6 +1,9 @@
 package cn.xxyangyoulin.shiyue.data.bean;
 
-public abstract class BaseBean {
+import java.io.Serializable;
+
+public class BaseBean implements Serializable {
+
 
     /**
      * code : Number

@@ -17,11 +17,9 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.base.BaseLazyFragment;
 import cn.xxyangyoulin.shiyue.data.bean.Poem;
-import cn.xxyangyoulin.shiyue.main.adapter.MainAdapter;
 import cn.xxyangyoulin.shiyue.publish.PublishFragment;
 import cn.xxyangyoulin.shiyue.search.SearchFragment;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
@@ -77,7 +75,7 @@ public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnM
             poemsLists.add(new Poem());
         }
 
-        DisCoveryAdapter disCoveryAdapter = new DisCoveryAdapter(R.layout.layout_discovery_item_vertical, poemsLists);
+        DisCoveryAdapter disCoveryAdapter = new DisCoveryAdapter(R.layout.adapter_discovery_item_vertical, poemsLists);
 
         View headerLayout = View.inflate(getContext(), R.layout.layout_discovery_item_header, null);
         View footerLayout = View.inflate(getContext(), R.layout.adapter_normal_footer_item_loading, null);

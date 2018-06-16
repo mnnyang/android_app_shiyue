@@ -2,12 +2,14 @@ package cn.xxyangyoulin.shiyue.util;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * 日志工具<br>
  * Created by mnnyang on 17-4-8.
  */
 
-public class LogUtil {
+public class LogUtil implements Serializable{
 
     private static final String STRING = "------->";
     private static final String SUFFIX = "<-------";

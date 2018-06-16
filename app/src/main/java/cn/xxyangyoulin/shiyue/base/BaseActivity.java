@@ -1,6 +1,7 @@
 package cn.xxyangyoulin.shiyue.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -9,12 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 import cn.xxyangyoulin.shiyue.util.LogUtil;
-import cn.xxyangyoulin.shiyue.util.StatusBarUtil;
 import cn.xxyangyoulin.shiyue.util.ToastUtils;
 
 
@@ -33,6 +31,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogUtil.d(TAG, "onCreate");
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         ActivityUtil.addActivity(this);
     }

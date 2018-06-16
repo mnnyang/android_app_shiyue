@@ -31,18 +31,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingRight="@dimen/margin_16dp"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_16dp">
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingRight="@dimen/margin_16dp">
 
         <EditText
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
             android:background="@null"
             android:hint="标题"
             android:maxLines="2"
-            android:layout_marginBottom="@dimen/margin_16dp"
             android:textColor="@color/colorMain"
             android:textSize="24sp" />
 
@@ -91,6 +91,18 @@
                     android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/margin_4dp"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:tint="@color/colorMain"
+                    android:visibility="visible" />
+
+                <ImageView
                     android:id="@+id/iv_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,9 +116,13 @@
         </ScrollView>
 
         <ImageView
+            android:id="@+id/iv_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:padding="@dimen/margin_8dp"
             android:src="@drawable/ic_send_black_24dp" />
     </LinearLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryCustom"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_16dp">
+
+        <cn.xxyangyoulin.shiyue.widget.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="西江月"
+            android:textColor="@color/colorMain"
+            android:textSize="20sp" />
+
+        <cn.xxyangyoulin.shiyue.widget.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="[宋] 苏轼"
+            android:textColor="@color/colorMain"
+            android:textSize="14sp" />
+
+
+        <cn.xxyangyoulin.shiyue.widget.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="8dp"
+            android:text="你在楼上看风景\n看风景的人在楼上看你
+\n明月装饰了你的窗\n你装饰了别人的梦\n你在楼上看风景\n看风景的人在楼上看你
+\n明月装饰了你的窗\n你装饰了别人的梦\n明月装饰了你的窗\n你装饰了别人的梦"
+            android:textColor="@color/colorMain"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingRight="@dimen/margin_16dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_comment_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="评论(234)"
+            android:textColor="@color/colorSecond"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/layout_comment_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/margin_4dp"
+            android:paddingRight="@dimen/margin_4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排序"
+                android:textColor="@color/colorSecond"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

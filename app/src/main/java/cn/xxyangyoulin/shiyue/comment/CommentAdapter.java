@@ -1,4 +1,4 @@
-package cn.xxyangyoulin.shiyue.main.adapter;
+package cn.xxyangyoulin.shiyue.comment;
 
 import android.support.annotation.NonNull;
 
@@ -7,9 +7,9 @@ import java.util.List;
 import cn.xxyangyoulin.shiyue.base.RecyclerBaseAdapter;
 import cn.xxyangyoulin.shiyue.data.bean.Poem;
 
-public class MainAdapter extends RecyclerBaseAdapter<Poem> {
+public class CommentAdapter extends RecyclerBaseAdapter<Poem> {
 
-    public MainAdapter(int itemLayoutId, @NonNull List<Poem> data) {
+    public CommentAdapter(int itemLayoutId, @NonNull List<Poem> data) {
         super(itemLayoutId, data);
     }
 

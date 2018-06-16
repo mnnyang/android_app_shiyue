@@ -24,6 +24,7 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
     private EditText mEtContent;
     private ImageView mIvHeader;
     private EditText mEtTitle;
+    private View mIvClose;
 
     public static PublishFragment newInstance() {
 
@@ -46,9 +47,10 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
         mLayoutEmnojiPanel = rootView.findViewById(R.id.layout_emoji_panel);
         mIvEmoji = rootView.findViewById(R.id.iv_emoji);
         mIvHeader = rootView.findViewById(R.id.iv_header);
+        mIvClose = rootView.findViewById(R.id.iv_close);
         mEtTitle = rootView.findViewById(R.id.et_title);
         mEtContent = rootView.findViewById(R.id.et_content);
-        mToolbar.inflateMenu(R.menu.toolbar_publish);
+//        mToolbar.inflateMenu(R.menu.toolbar_publish);
     }
 
     @Override
@@ -65,6 +67,7 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
             }
         });
 
+        mIvClose.setOnClickListener(this);
         mIvHeader.setOnClickListener(this);
 
         mIvEmoji.setOnClickListener(new View.OnClickListener() {
@@ -97,13 +100,12 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
     }
 
 
-
     @Override
     public void close() {
         super.close();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(0, R.anim.anim_fragment_down);
-        transaction.hide(PublishFragment.this);
+        transaction.remove(PublishFragment.this);
         transaction.commitAllowingStateLoss();
     }
 
@@ -118,6 +120,9 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
         switch (v.getId()) {
             case R.id.iv_header:
                 switchHeader();
+                break;
+            case R.id.iv_close:
+                onBackPressed();
                 break;
         }
     }

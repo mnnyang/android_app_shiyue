@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">诗曰</string>
-    <string name="title_home">首页</string>
+    <string name="title_home">我</string>
     <string name="title_dashboard">发现</string>
-    <string name="title_notifications">我</string>
-    <string name="app_preference_demo" />
+    <string name="title_notifications">首页</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
