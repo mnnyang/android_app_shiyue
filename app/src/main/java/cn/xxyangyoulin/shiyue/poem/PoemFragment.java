@@ -25,7 +25,6 @@ import cn.xxyangyoulin.shiyue.base.FragmentBackHandler;
 import cn.xxyangyoulin.shiyue.base.RecyclerBaseAdapter;
 import cn.xxyangyoulin.shiyue.comment.CommentActivity;
 import cn.xxyangyoulin.shiyue.data.bean.Poem;
-import cn.xxyangyoulin.shiyue.main.adapter.MainAdapter;
 
 public class PoemFragment extends BaseFragment implements FragmentBackHandler, View.OnClickListener {
 
@@ -49,8 +48,8 @@ public class PoemFragment extends BaseFragment implements FragmentBackHandler, V
 
     @Override
     public void initView() {
-        mToolbar = rootView.findViewById(R.id.toolbar);
-        mRecyclerView = rootView.findViewById(R.id.recycler_view);
+        mToolbar = mRootView.findViewById(R.id.toolbar);
+        mRecyclerView = mRootView.findViewById(R.id.recycler_view);
 
         backToolbar(mToolbar);
         mToolbar.inflateMenu(R.menu.toolbar_poem);

@@ -29,18 +29,22 @@ public class ToastUtils {
         show(context.getString(resId));
     }
 
-    public static void show(String text) {
-        if (toast == null) {
-            toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        } else {
-            toast.setText(text);
-            toast.setDuration(Toast.LENGTH_SHORT);
-        }
+    public static void show(final String text) {
+
 
         handler.post(new Runnable() {
+
             @Override
             public void run() {
+                if (toast == null) {
+                    toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                } else {
+                    toast.setText(text);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                }
+
                 toast.show();
+
             }
         });
     }

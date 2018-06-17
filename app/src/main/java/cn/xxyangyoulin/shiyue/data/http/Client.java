@@ -1,12 +1,25 @@
 package cn.xxyangyoulin.shiyue.data.http;
 
+import android.text.TextUtils;
+
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.xxyangyoulin.shiyue.BuildConfig;
+import cn.xxyangyoulin.shiyue.app.Cache;
 import cn.xxyangyoulin.shiyue.app.Constants;
+import cn.xxyangyoulin.shiyue.util.LogUtil;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,6 +58,45 @@ public class Client {
     private Retrofit createRetrofit() {
         //初始化OkHttp
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .cookieJar(new CookieJar() {
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        ArrayList<Cookie> cookies = new ArrayList<>();
+                        Cookie cookie = new Cookie.Builder()
+                                .hostOnlyDomain(url.host())
+                                .name("sessionid").value(Cache.newInstance().tempCookie)
+                                .build();
+                        cookies.add(cookie);
+                        return cookies;
+
+                    }
+                })
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        String urlString = request.url().toString();
+
+                        if (!urlString.contains("?")) {
+                            if (!urlString.endsWith("/")) {
+                                urlString += "/";
+                            }
+                        } else {
+//                          /*带参数的情况*/
+                            String[] urlStrings = urlString.split("\\?");
+                            urlString = urlStrings[0] + "/?" + urlStrings[1];
+                        }
+
+                        LogUtil.v(this, urlString);
+                        request = request.newBuilder().url(urlString).build();
+                        return chain.proceed(request);
+                    }
+                })
                 .connectTimeout(9, TimeUnit.SECONDS)    //设置连接超时 9s
                 .readTimeout(10, TimeUnit.SECONDS);      //设置读取超时 10s
 

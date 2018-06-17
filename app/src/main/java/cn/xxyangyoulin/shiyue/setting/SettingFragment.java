@@ -30,7 +30,7 @@ public class SettingFragment extends BaseFragment implements FragmentBackHandler
 
     @Override
     public void initView() {
-        mToolbar = rootView.findViewById(R.id.toolbar);
+        mToolbar = mRootView.findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbar_publish);
     }
 

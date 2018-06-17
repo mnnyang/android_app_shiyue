@@ -1,17 +1,14 @@
 package cn.xxyangyoulin.shiyue.publish;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import butterknife.BindView;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.base.BaseFragment;
 import cn.xxyangyoulin.shiyue.base.FragmentBackHandler;
@@ -43,13 +40,13 @@ public class PublishFragment extends BaseFragment implements FragmentBackHandler
 
     @Override
     public void initView() {
-        mToolbar = rootView.findViewById(R.id.toolbar);
-        mLayoutEmnojiPanel = rootView.findViewById(R.id.layout_emoji_panel);
-        mIvEmoji = rootView.findViewById(R.id.iv_emoji);
-        mIvHeader = rootView.findViewById(R.id.iv_header);
-        mIvClose = rootView.findViewById(R.id.iv_close);
-        mEtTitle = rootView.findViewById(R.id.et_title);
-        mEtContent = rootView.findViewById(R.id.et_content);
+        mToolbar = mRootView.findViewById(R.id.toolbar);
+        mLayoutEmnojiPanel = mRootView.findViewById(R.id.layout_emoji_panel);
+        mIvEmoji = mRootView.findViewById(R.id.iv_emoji);
+        mIvHeader = mRootView.findViewById(R.id.iv_header);
+        mIvClose = mRootView.findViewById(R.id.iv_close);
+        mEtTitle = mRootView.findViewById(R.id.et_title);
+        mEtContent = mRootView.findViewById(R.id.et_content);
 //        mToolbar.inflateMenu(R.menu.toolbar_publish);
     }
 

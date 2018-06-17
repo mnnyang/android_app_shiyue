@@ -1,5 +1,6 @@
 package cn.xxyangyoulin.shiyue.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +29,6 @@ public class MainActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Emojiconize.activity(this).go();
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity {
 
 
         initViewPager();
-
     }
 
     private void initViewPager() {
@@ -77,6 +76,11 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

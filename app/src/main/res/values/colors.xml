@@ -10,4 +10,6 @@
     <color name="colorMain">#FF2b3036</color>
     <color name="colorSecond">#FF888888</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>

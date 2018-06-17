@@ -10,4 +10,5 @@ public class Constants {
 
 
     public static final String preference_session_id = "preference_session_id";
+    public static int REQUEST_CODE_PHOTO = 1;
 }

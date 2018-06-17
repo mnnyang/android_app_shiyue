@@ -48,10 +48,10 @@ public class SearchFragment extends BaseFragment implements FragmentBackHandler 
     @Override
     public void initView() {
         super.initView();
-        mEtSearch = rootView.findViewById(R.id.et_search);
-        mTagContainerView = rootView.findViewById(R.id.hot_search_container);
-        mRecyclerViewHistory = rootView.findViewById(R.id.recycler_view_history);
-        mIvExit = rootView.findViewById(R.id.iv_exit);
+        mEtSearch = mRootView.findViewById(R.id.et_search);
+        mTagContainerView = mRootView.findViewById(R.id.hot_search_container);
+        mRecyclerViewHistory = mRootView.findViewById(R.id.recycler_view_history);
+        mIvExit = mRootView.findViewById(R.id.iv_exit);
     }
 
     List<String> hotList = Arrays.asList("李白", "白居易",

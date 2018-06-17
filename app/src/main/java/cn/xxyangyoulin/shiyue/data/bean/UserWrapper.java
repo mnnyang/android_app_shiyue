@@ -1,22 +1,22 @@
 package cn.xxyangyoulin.shiyue.data.bean;
 
-public class LoginBean extends BaseBean {
+public class UserWrapper extends BaseBean {
 
     /**
      * data : {"username":"admin","blogurl":"http://xxyangyoulin.cn","first_name":"","last_name":"","backend":null,"nick_name":"f","gender":1,"is_active":true,"introduce":"f","email":"admin@qq.com","avator":"/file/upload/avator/201806/AppIcon57x572x.png","is_superuser":true,"is_staff":true,"last_login":1.529143805E9,"password":"pbkdf2_sha256$24000$uMjS2tLNflhX$qIeuzU6qrIG46PRn3cAfYVKXngNX1/kP/ZF159kNPcs=","id":1,"date_joined":1.52913996E9}
      */
 
-    private DataBean data;
+    private User data;
 
-    public DataBean getData() {
+    public User getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(User data) {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class User {
         /**
          * username : admin
          * blogurl : http://xxyangyoulin.cn
@@ -180,6 +180,28 @@ public class LoginBean extends BaseBean {
 
         public void setDate_joined(double date_joined) {
             this.date_joined = date_joined;
+        }
+
+        @Override
+        public String toString() {
+            return "User{" +
+                    "username='" + username + '\'' +
+                    ", first_name='" + first_name + '\'' +
+                    ", last_name='" + last_name + '\'' +
+                    ", backend=" + backend +
+                    ", nick_name='" + nick_name + '\'' +
+                    ", gender=" + gender +
+                    ", is_active=" + is_active +
+                    ", introduce='" + introduce + '\'' +
+                    ", email='" + email + '\'' +
+                    ", avator='" + avator + '\'' +
+                    ", is_superuser=" + is_superuser +
+                    ", is_staff=" + is_staff +
+                    ", last_login=" + last_login +
+                    ", password='" + password + '\'' +
+                    ", id=" + id +
+                    ", date_joined=" + date_joined +
+                    '}';
         }
     }
 }

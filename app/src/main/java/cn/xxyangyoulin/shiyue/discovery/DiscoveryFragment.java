@@ -33,9 +33,6 @@ import cn.xxyangyoulin.shiyue.util.StatusUtil;
 
 public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnMenuItemClickListener {
 
-    private BroadcastReceiver mLoginBroadcastReceiver;
-    private LocalBroadcastManager mBroadcastManager;
-
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
 
@@ -68,19 +65,7 @@ public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnM
      * 登录监听
      */
     private void loginListener() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Constants.INTENT_LOGIN_COMPLETED);
-        mLoginBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                StatusUtil.status(StatusUtil.Status.SUCCEED,
-                        mRootView.findViewById(R.id.layout_content),
-                        mRootView.findViewById(R.id.layout_state));
-            }
-        };
 
-        mBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        mBroadcastManager.registerReceiver(mLoginBroadcastReceiver, intentFilter);
     }
 
     private void initToolbar() {
@@ -183,6 +168,5 @@ public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnM
     public void onDestroy() {
         super.onDestroy();
         /*取消监听*/
-        mBroadcastManager.unregisterReceiver(mLoginBroadcastReceiver);
     }
 }

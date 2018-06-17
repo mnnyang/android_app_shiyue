@@ -30,6 +30,10 @@ public class StatusUtil {
 
     public static void status(int status, View content, View statusLayout, String msg) {
         status(status, content, statusLayout);
+
+        if (statusLayout == null){
+            return;
+        }
         TextView tvMsg = statusLayout.findViewById(R.id.tv_status_msg);
         if (tvMsg != null) {
             tvMsg.setText(msg);

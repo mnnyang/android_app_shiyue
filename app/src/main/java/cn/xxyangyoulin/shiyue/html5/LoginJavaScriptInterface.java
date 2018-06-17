@@ -1,23 +1,22 @@
 package cn.xxyangyoulin.shiyue.html5;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
 import android.webkit.JavascriptInterface;
 
 import com.google.gson.Gson;
 
 import java.io.Serializable;
 
+import cn.xxyangyoulin.shiyue.LoginEvent;
 import cn.xxyangyoulin.shiyue.app.Cache;
 import cn.xxyangyoulin.shiyue.app.Constants;
-import cn.xxyangyoulin.shiyue.app.app;
 import cn.xxyangyoulin.shiyue.data.bean.BaseBean;
-import cn.xxyangyoulin.shiyue.data.bean.LoginBean;
+import cn.xxyangyoulin.shiyue.data.bean.UserWrapper;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 import cn.xxyangyoulin.shiyue.util.LogUtil;
 import cn.xxyangyoulin.shiyue.util.Preferences;
 import cn.xxyangyoulin.shiyue.util.ToastUtils;
+import de.greenrobot.event.EventBus;
 
 public class LoginJavaScriptInterface implements Serializable {
 
@@ -34,8 +33,8 @@ public class LoginJavaScriptInterface implements Serializable {
 
         if (baseBean.getCode() == 1) {
 
-            LoginBean loginBean = gson.fromJson(json, LoginBean.class);
-            ToastUtils.show("登录成功！" + loginBean.getData().getUsername());
+            UserWrapper userWrapper = gson.fromJson(json, UserWrapper.class);
+            ToastUtils.show("登录成功！" + userWrapper.getData().getUsername());
 
             /*解析sessionId*/
             String[] strings = Cache.newInstance().tempCookie.split(";");
@@ -44,7 +43,6 @@ public class LoginJavaScriptInterface implements Serializable {
                     String sessionId = string.replace("sessionid=", "");
 
                     Preferences.putString(Constants.preference_session_id, sessionId);
-                    ToastUtils.show(sessionId);
                     break;
                 }
             }
@@ -63,8 +61,6 @@ public class LoginJavaScriptInterface implements Serializable {
 
     /*通知登录完成*/
     private void sendLoginCompleted() {
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(app.getContext());
-        Intent intent = new Intent(Constants.INTENT_LOGIN_COMPLETED);
-        localBroadcastManager.sendBroadcast(intent);
+        EventBus.getDefault().post(new LoginEvent().setType(LoginEvent.TYPE_LOGIN));
     }
 }

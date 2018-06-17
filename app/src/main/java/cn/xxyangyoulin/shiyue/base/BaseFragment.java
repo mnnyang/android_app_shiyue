@@ -5,16 +5,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
-import butterknife.ButterKnife;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.util.LogUtil;
+import cn.xxyangyoulin.shiyue.util.ToastUtils;
 
 /**
  * Fragment 基类
@@ -22,7 +21,7 @@ import cn.xxyangyoulin.shiyue.util.LogUtil;
  */
 
 public abstract class BaseFragment extends Fragment {
-    protected View rootView;
+    protected View mRootView;
     protected Activity activity;
 
     @Nullable
@@ -30,9 +29,9 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         LogUtil.i(this, "onCreateView");
         activity = getActivity();
-        rootView = inflater.inflate(getLayout(), container, false);
+        mRootView = inflater.inflate(getLayout(), container, false);
         initView();
-        return rootView;
+        return mRootView;
     }
 
     @Override
@@ -56,12 +55,15 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    public void close() {
-        if (isAdded()) {
-            hideInput(getContext(), rootView);
-        }
+    public void toast(String s){
+        ToastUtils.show(s);
     }
 
+    public void close() {
+        if (isAdded()) {
+            hideInput(getContext(), mRootView);
+        }
+    }
 
     /**
      * 强制隐藏输入法键盘
