@@ -2,18 +2,14 @@ package cn.xxyangyoulin.shiyue.splash;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
 import cn.xxyangyoulin.shiyue.R;
-import cn.xxyangyoulin.shiyue.app.Cache;
-import cn.xxyangyoulin.shiyue.app.Constants;
 import cn.xxyangyoulin.shiyue.base.BaseActivity;
-import cn.xxyangyoulin.shiyue.main.MainActivity;
-import cn.xxyangyoulin.shiyue.util.Preferences;
+import cn.xxyangyoulin.shiyue.main.activity.MainActivity;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -119,6 +115,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 gotoActivity(MainActivity.class);
+                finish();
             }
         }, 1000);
     }

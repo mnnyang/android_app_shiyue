@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.app.Cache;
 import cn.xxyangyoulin.shiyue.base.BaseActivity;
+import cn.xxyangyoulin.shiyue.util.LogUtil;
 import cn.xxyangyoulin.shiyue.util.ToastUtils;
 import cn.xxyangyoulin.shiyue.widget.SmoothProgress;
 
@@ -144,8 +145,8 @@ public class Html5Activity extends BaseActivity {
             CookieManager cookieManager = CookieManager.getInstance();
 
             /*保存cookie*/
-            toast(cookieManager.getCookie(url));
-            Cache.newInstance().tempCookie = cookieManager.getCookie(url);
+            LogUtil.i(this,"保存了Cookie="+cookieManager.getCookie(url));
+            Cache.newInstance().setCookie(cookieManager.getCookie(url));
         }
 
         @Override

@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
@@ -48,11 +49,11 @@
             android:textColor="@color/colorSecond"
             android:textSize="@dimen/size_16sp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/civ_avator"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/image" />
+            android:src="@drawable/image_default_avator" />
 
     </LinearLayout>
 
@@ -85,7 +86,7 @@
             android:gravity="end"
             android:maxLines="1"
             android:paddingLeft="@dimen/margin_16dp"
-            android:text="xxyangyoulin"
+            tools:text="xxyangyoulin"
             android:textColor="@color/colorMain"
             android:textSize="@dimen/size_16sp" />
     </LinearLayout>
@@ -120,7 +121,7 @@
             android:gravity="end"
             android:maxLines="1"
             android:paddingLeft="@dimen/margin_16dp"
-            android:text="剑客行"
+            tools:text="剑客行"
             android:textColor="@color/colorMain"
             android:textSize="@dimen/size_16sp" />
     </LinearLayout>

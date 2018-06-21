@@ -2,7 +2,7 @@ package cn.xxyangyoulin.shiyue.data;
 
 import java.util.List;
 
-import cn.xxyangyoulin.shiyue.data.bean.Poem;
+import cn.xxyangyoulin.shiyue.data.bean.PoemWrapper;
 
 public class PoemsRepository implements PoemsDataSource {
 
@@ -18,12 +18,12 @@ public class PoemsRepository implements PoemsDataSource {
     }
 
     @Override
-    public List<Poem> getPoemsByAuthor(String authorName) {
+    public List<PoemWrapper> getPoemsByAuthor(String authorName) {
         return null;
     }
 
     @Override
-    public List<Poem> getPoemsByTitle(String title) {
+    public List<PoemWrapper> getPoemsByTitle(String title) {
         return null;
     }
 

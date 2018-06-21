@@ -1,22 +1,23 @@
 package cn.xxyangyoulin.shiyue.data.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Poem extends BaseBean {
+public class PoemWrapper extends BaseBean {
 
 
 
-    private List<DataBean> data;
+    private List<Poem> data;
 
-    public List<DataBean> getData() {
+    public List<Poem> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(List<Poem> data) {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class Poem implements Serializable{
         /**
          * author : 柳永
          * title : 西江月

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_16dp"
     android:background="@color/colorPrimaryCustom"
     android:orientation="vertical"
@@ -24,6 +25,7 @@
 
         <TextView
             android:layout_width="0dp"
+            android:id="@+id/tv_author"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_16dp"
             android:layout_marginTop="-2dp"
@@ -142,12 +144,12 @@
             android:orientation="horizontal">
 
             <cn.xxyangyoulin.shiyue.widget.FontTextView
-                android:id="@+id/tv_comment"
+                android:id="@+id/tv_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-1dp"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="88"
+                tools:text="88"
                 android:textColor="#444444"
                 android:textSize="12sp" />
 

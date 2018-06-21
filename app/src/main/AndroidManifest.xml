@@ -21,7 +21,7 @@
         <!-- android:windowSoftInputMode="adjustPan|stateHidden" -->
 
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden">
 
@@ -30,12 +30,12 @@
             android:name=".comment.CommentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:launchMode="singleTop"
             android:name=".html5.Html5Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_splash"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

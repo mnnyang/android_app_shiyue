@@ -2,7 +2,7 @@ package cn.xxyangyoulin.shiyue.data;
 
 import java.util.List;
 
-import cn.xxyangyoulin.shiyue.data.bean.Poem;
+import cn.xxyangyoulin.shiyue.data.bean.PoemWrapper;
 
 public interface PoemsDataSource {
 
@@ -10,8 +10,8 @@ public interface PoemsDataSource {
 
     void getRandomPoem();
 
-    List<Poem> getPoemsByAuthor(String authorName);
+    List<PoemWrapper> getPoemsByAuthor(String authorName);
 
-    List<Poem> getPoemsByTitle(String title);
+    List<PoemWrapper> getPoemsByTitle(String title);
 
 }

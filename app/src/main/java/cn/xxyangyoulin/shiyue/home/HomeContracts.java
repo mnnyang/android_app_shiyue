@@ -6,7 +6,8 @@ import cn.xxyangyoulin.shiyue.data.bean.UserWrapper;
 
 public interface HomeContracts {
     interface HomePresenter extends BasePresenter {
-        void uploadUserInfo();
+        void updateUserInfo();
+        void updatePageView();
     }
 
     interface HomeView extends BaseView<HomePresenter> {

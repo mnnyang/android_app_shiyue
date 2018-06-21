@@ -66,12 +66,17 @@ public class Client {
 
                     @Override
                     public List<Cookie> loadForRequest(HttpUrl url) {
+
                         ArrayList<Cookie> cookies = new ArrayList<>();
                         Cookie cookie = new Cookie.Builder()
                                 .hostOnlyDomain(url.host())
-                                .name("sessionid").value(Cache.newInstance().tempCookie)
+                                .name("sessionid").value(Cache.newInstance().getSessionId())
                                 .build();
                         cookies.add(cookie);
+
+                        LogUtil.e(this, "添加了sessionid="
+                                + Cache.newInstance().getSessionId());
+
                         return cookies;
 
                     }

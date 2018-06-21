@@ -9,29 +9,27 @@ import android.widget.TextView;
 import cn.xxyangyoulin.shiyue.R;
 
 public class StatusUtil {
-    public static class Status {
-        public static final int SUCCEED = 0;
-        public static final int ERROR = 2;
-    }
+    public static final int SUCCEED = 0;
+    public static final int ERROR = 2;
 
-    public static void status(int status, View content, View statusLayout) {
+    public static void status(int status, View succeedLayout, View statusLayout) {
         switch (status) {
-            case Status.SUCCEED:
+            case SUCCEED:
                 statusLayout.setVisibility(View.GONE);
-                content.setVisibility(View.VISIBLE);
+                succeedLayout.setVisibility(View.VISIBLE);
                 break;
 
-            case Status.ERROR:
+            case ERROR:
                 statusLayout.setVisibility(View.VISIBLE);
-                content.setVisibility(View.GONE);
+                succeedLayout.setVisibility(View.GONE);
                 break;
         }
     }
 
-    public static void status(int status, View content, View statusLayout, String msg) {
-        status(status, content, statusLayout);
+    public static void status(int status, View succeedLayout, View statusLayout, String msg) {
+        status(status, succeedLayout, statusLayout);
 
-        if (statusLayout == null){
+        if (statusLayout == null) {
             return;
         }
         TextView tvMsg = statusLayout.findViewById(R.id.tv_status_msg);
@@ -41,10 +39,10 @@ public class StatusUtil {
     }
 
 
-    public static void status(int status, View content, View statusLayout, String msg,
+    public static void status(int status, View succeedLayout, View statusLayout, String msg,
                               String btnName, View.OnClickListener clickListener) {
 
-        status(status, content, statusLayout, msg);
+        status(status, succeedLayout, statusLayout, msg);
 
         Button btnStatus = statusLayout.findViewById(R.id.btn_status);
         if (!TextUtils.isEmpty(btnName)) {

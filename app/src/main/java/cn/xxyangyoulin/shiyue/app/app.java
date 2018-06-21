@@ -22,10 +22,6 @@ public class app extends Application {
         mContext = getApplicationContext();
         initUtils();
 
-        /*sessionId*/
-        Cache.newInstance().tempCookie = Preferences.getString(
-                Constants.preference_session_id, "");
-
         if (mTypeFace == null) {
             mTypeFace = Typeface.createFromAsset(getAssets(), "fonts/方正中宋简体.ttf");
         }

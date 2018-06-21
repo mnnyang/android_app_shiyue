@@ -1,4 +1,6 @@
-package cn.xxyangyoulin.shiyue.info;
+package cn.xxyangyoulin.shiyue.profile;
+
+import android.os.Handler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import cn.xxyangyoulin.shiyue.data.api.UserInfoService;
 import cn.xxyangyoulin.shiyue.data.bean.BaseBean;
 import cn.xxyangyoulin.shiyue.data.bean.UserWrapper;
 import cn.xxyangyoulin.shiyue.data.http.Client;
+import cn.xxyangyoulin.shiyue.util.ActivityUtil;
 import de.greenrobot.event.EventBus;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -42,6 +45,10 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                                 if (userWrapper.getCode() == 1 && userWrapper.getData() != null) {
 
                                     mView.fillDefault(userWrapper.getData());
+                                } else if (userWrapper.getCode() == 2 || userWrapper.getMsg().equals("未登录")) {
+                                    reLogin();
+                                } else {
+                                    mView.showErrorInfo(userWrapper.getMsg());
                                 }
                             } else {
                                 mView.showErrorInfo("加载失败！");
@@ -56,6 +63,20 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                         }
                     }
                 });
+    }
+
+    private void reLogin() {
+        mView.showErrorInfo("请重新登录");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mView.isActive()) {
+                    mView.exit();
+                    ActivityUtil.openLogonPage();
+                }
+            }
+        }, 300);
     }
 
     @Override
@@ -76,7 +97,7 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                 RequestBody.create(MediaType.parse("multipart/form-data"), avatorFile);
         MultipartBody.Part avator = MultipartBody.Part.createFormData("avator", avatorFile.getName(), requestFile);
 
-        mView.showErrorInfo("上传图片中...");
+        mView.showProgress("上传图片中...");
         mDisposable = Client.getInstance()
                 .create(UserInfoService.class)
                 .updateUserInfo(1, avator)
@@ -85,8 +106,8 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                 .subscribe(new Consumer<BaseBean>() {
                     @Override
                     public void accept(BaseBean baseBean) throws Exception {
+                        mView.hideProgress();
                         if (mView.isActive()) {
-                            mView.hideProgress();
                             if (baseBean.getCode() == 1) {
                                 mView.uploadAvatorSucceed();
                                 EventBus.getDefault().post(new UpdateUserEvent());
@@ -98,8 +119,8 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideProgress();
                         if (mView.isActive()) {
-                            mView.hideProgress();
                             mView.showErrorInfo("加载失败！");
                         }
                     }
@@ -114,7 +135,7 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
         params.put("introduce", user.getIntroduce());
 
 
-        mView.showErrorInfo("正在保存...");
+        mView.showProgress("正在保存...");
         mDisposable = Client.getInstance()
                 .create(UserInfoService.class)
                 .updateUserInfo(params)
@@ -123,8 +144,8 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                 .subscribe(new Consumer<BaseBean>() {
                     @Override
                     public void accept(BaseBean baseBean) throws Exception {
+                        mView.hideProgress();
                         if (mView.isActive()) {
-                            mView.hideProgress();
                             if (baseBean.getCode() == 1) {
                                 mView.saveSucceed();
                                 EventBus.getDefault().post(new UpdateUserEvent());
@@ -136,8 +157,8 @@ public class ProfilePresenter implements ProfileContracts.ProfilePresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideProgress();
                         if (mView.isActive()) {
-                            mView.hideProgress();
                             mView.showErrorInfo("加载失败！");
                         }
                     }

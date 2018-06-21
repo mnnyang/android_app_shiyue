@@ -12,15 +12,15 @@ import java.util.List;
  * Created by mnnyang on 17-4-12.
  */
 
-public class HomeAdapter extends FragmentPagerAdapter {
+public class PageAdapter extends FragmentPagerAdapter {
 
     protected List<Fragment> fragments;
 
-    public HomeAdapter(FragmentManager manager) {
+    public PageAdapter(FragmentManager manager) {
         super(manager);
     }
 
-    public HomeAdapter(FragmentManager manager, List<Fragment> fragments) {
+    public PageAdapter(FragmentManager manager, List<Fragment> fragments) {
         super(manager);
         this.fragments = fragments;
     }

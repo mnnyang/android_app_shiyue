@@ -1,4 +1,4 @@
-package cn.xxyangyoulin.shiyue.info;
+package cn.xxyangyoulin.shiyue.profile;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +22,6 @@ import com.bumptech.glide.request.RequestOptions;
 import java.io.File;
 
 import cn.xxyangyoulin.shiyue.R;
-import cn.xxyangyoulin.shiyue.UpdateUserEvent;
 import cn.xxyangyoulin.shiyue.app.Constants;
 import cn.xxyangyoulin.shiyue.base.BaseFragment;
 import cn.xxyangyoulin.shiyue.base.FragmentBackHandler;
@@ -31,14 +31,12 @@ import cn.xxyangyoulin.shiyue.util.DialogHelper;
 import cn.xxyangyoulin.shiyue.util.FileUtil;
 import cn.xxyangyoulin.shiyue.util.LogUtil;
 import cn.xxyangyoulin.shiyue.util.RequestPermission;
-import de.greenrobot.event.EventBus;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends BaseFragment implements ProfileContracts.ProfileView, FragmentBackHandler {
 
     Toolbar mToolbar;
     ProfileContracts.ProfilePresenter mProfilePresenter;
-    private CircleImageView mCivAvator;
+//    private CircleImageView mCivAvator;
     private TextView mEtNickName;
     private TextView mEtIntroduce;
     private View mViewAvator;
@@ -65,7 +63,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContracts.Pr
     public void initView() {
         mViewAvator = mRootView.findViewById(R.id.layout_avator);
         mToolbar = mRootView.findViewById(R.id.toolbar);
-        mCivAvator = mRootView.findViewById(R.id.civ_avator);
+//        mCivAvator = mRootView.findViewById(R.id.civ_avator);
         mEtNickName = mRootView.findViewById(R.id.et_nickname);
         mEtIntroduce = mRootView.findViewById(R.id.et_introduce);
 
@@ -140,7 +138,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContracts.Pr
                 Bitmap bit = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
 
                 // 给相应的ImageView设置图片 未裁剪
-                mCivAvator.setImageBitmap(bit);
+//                mCivAvator.setImageBitmap(bit);
 
                 /*触发上传*/
                 uploadAvator();
@@ -220,16 +218,22 @@ public class ProfileFragment extends BaseFragment implements ProfileContracts.Pr
     }
 
     @Override
+    public void exit() {
+        close();
+    }
+
+    @Override
     public void fillDefault(UserWrapper.User user) {
         mEtNickName.setText(user.getNick_name());
         mEtIntroduce.setText(user.getIntroduce());
 
         RequestOptions options = new RequestOptions()
+                .optionalCircleCrop()
                 .placeholder(R.drawable.image_default_avator);
         Glide.with(this)
                 .applyDefaultRequestOptions(options)
-                .load(HandleSubpath.handle(user.getAvator()))
-                .into(mCivAvator);
+                .load(HandleSubpath.handle(user.getAvator(),true))
+                .into((ImageView) mRootView.findViewById(R.id.civ_avator));
     }
 
     @Override
@@ -239,6 +243,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContracts.Pr
 
     @Override
     public void showProgress(String msg) {
+        hideProgress();
         mDialogHelper = new DialogHelper();
         mDialogHelper.showProgressDialog(getContext(), "请稍等", msg, false);
     }
@@ -246,7 +251,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContracts.Pr
     @Override
     public void hideProgress() {
         if (mDialogHelper != null) {
-            mDialogHelper.hideCustomDialog();
+            mDialogHelper.hideProgressDialog();
         }
     }
 

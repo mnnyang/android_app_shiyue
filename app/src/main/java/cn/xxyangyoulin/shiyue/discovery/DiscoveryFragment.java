@@ -1,13 +1,8 @@
 package cn.xxyangyoulin.shiyue.discovery;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +18,11 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 
 import cn.xxyangyoulin.shiyue.R;
-import cn.xxyangyoulin.shiyue.app.Constants;
 import cn.xxyangyoulin.shiyue.base.BaseLazyFragment;
-import cn.xxyangyoulin.shiyue.data.bean.Poem;
+import cn.xxyangyoulin.shiyue.data.bean.PoemWrapper;
 import cn.xxyangyoulin.shiyue.publish.PublishFragment;
 import cn.xxyangyoulin.shiyue.search.SearchFragment;
 import cn.xxyangyoulin.shiyue.util.ActivityUtil;
-import cn.xxyangyoulin.shiyue.util.StatusUtil;
 
 public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnMenuItemClickListener {
 
@@ -85,10 +78,10 @@ public class DiscoveryFragment extends BaseLazyFragment implements PopupMenu.OnM
 
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ArrayList<Poem> poemsLists = new ArrayList<>();
+        ArrayList<PoemWrapper> poemsLists = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            poemsLists.add(new Poem());
+            poemsLists.add(new PoemWrapper());
         }
 
         DisCoveryAdapter disCoveryAdapter = new DisCoveryAdapter(R.layout.adapter_discovery_item_vertical, poemsLists);

@@ -23,20 +23,36 @@ public class HomePresenter implements HomeContracts.HomePresenter {
 
     @Override
     public void start() {
-        if (!TextUtils.isEmpty(Cache.newInstance().tempCookie)) {
-            if (mView.isActive()) {
-                mView.showHomePage();
-            } else {
-                mView.showPleaseLoginPage();
-            }
-        }
-
-        //TODO 加载缓存 信息版本比对，过时才调用网咯更新
-        uploadUserInfo();
+        updatePageView();
     }
 
     @Override
-    public void uploadUserInfo() {
+    public void updatePageView() {
+        UserWrapper.User user = Cache.newInstance().getUser();
+
+        if (user != null && !Cache.newInstance().getSessionId().isEmpty()) {
+
+            if (mView.isActive()) {
+                mView.showHomePage();
+            }
+
+            if (user != null) {
+                mView.fillUserInfo(user);
+            } else {
+                updateUserInfo();
+            }
+            //TODO 加载缓存 信息版本比对，过时才调用更新
+
+        } else {
+            if (mView.isActive()) {
+                mView.showPleaseLoginPage();
+                mView.fillUserInfo(null);
+            }
+        }
+    }
+
+    @Override
+    public void updateUserInfo() {
         mDisposable = Client.getInstance()
                 .create(UserInfoService.class)
                 .getUserInfo()
@@ -45,10 +61,15 @@ public class HomePresenter implements HomeContracts.HomePresenter {
                 .subscribe(new Consumer<UserWrapper>() {
                     @Override
                     public void accept(UserWrapper userWrapper) throws Exception {
+
+                        /*缓存用户信息*/
+                        if (userWrapper != null && userWrapper.getCode() == 1) {
+                            Cache.newInstance().setUser(userWrapper.getData());
+                        }
+
                         if (mView.isActive()) {
                             if (userWrapper != null) {
                                 if (userWrapper.getCode() == 1 && userWrapper.getData() != null) {
-
                                     mView.fillUserInfo(userWrapper.getData());
                                 }
                             } else {

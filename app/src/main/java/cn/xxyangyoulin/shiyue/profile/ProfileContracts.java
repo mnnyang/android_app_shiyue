@@ -1,4 +1,4 @@
-package cn.xxyangyoulin.shiyue.info;
+package cn.xxyangyoulin.shiyue.profile;
 
 import java.io.File;
 
@@ -33,5 +33,7 @@ public interface ProfileContracts {
         void saveSucceed();
 
         boolean isActive();
+
+        void exit();
     }
 }

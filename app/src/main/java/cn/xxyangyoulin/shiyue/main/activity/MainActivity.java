@@ -1,29 +1,31 @@
-package cn.xxyangyoulin.shiyue.main;
+package cn.xxyangyoulin.shiyue.main.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 
 import cn.xxyangyoulin.shiyue.R;
+import cn.xxyangyoulin.shiyue.app.Constants;
 import cn.xxyangyoulin.shiyue.base.BackHandlerHelper;
 import cn.xxyangyoulin.shiyue.base.BaseActivity;
 import cn.xxyangyoulin.shiyue.discovery.DiscoveryFragment;
 import cn.xxyangyoulin.shiyue.home.HomeFragment;
-import cn.xxyangyoulin.shiyue.main.adapter.HomeAdapter;
+import cn.xxyangyoulin.shiyue.html5.Html5Activity;
+import cn.xxyangyoulin.shiyue.html5.LoginJavaScriptInterface;
+import cn.xxyangyoulin.shiyue.main.MainFragment;
+import cn.xxyangyoulin.shiyue.main.adapter.PageAdapter;
 
 public class MainActivity extends BaseActivity {
 
     ViewPager mViewPager;
 
-    private HomeAdapter mHomeAdapter;
+    private PageAdapter mPageAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,8 @@ public class MainActivity extends BaseActivity {
         fragments.add(MainFragment.newInstance());
         fragments.add(DiscoveryFragment.newInstance());
         fragments.add(HomeFragment.newInstance());
-        mHomeAdapter = new HomeAdapter(getSupportFragmentManager(), fragments);
-        mViewPager.setAdapter(mHomeAdapter);
+        mPageAdapter = new PageAdapter(getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(mPageAdapter);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -75,13 +77,13 @@ public class MainActivity extends BaseActivity {
         if (!BackHandlerHelper.handleBackPress(this)) {
             super.onBackPressed();
         }
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -94,9 +96,9 @@ public class MainActivity extends BaseActivity {
                 .getPoemByTitle("西江月", 1, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Poem>() {
+                .subscribe(new Consumer<PoemWrapper>() {
                     @Override
-                    public void accept(Poem poem) throws Exception {
+                    public void accept(PoemWrapper poem) throws Exception {
                         System.out.println(poem);
                     }
                 }, new Consumer<Throwable>() {

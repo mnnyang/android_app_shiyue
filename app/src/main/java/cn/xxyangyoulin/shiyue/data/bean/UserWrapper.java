@@ -1,5 +1,7 @@
 package cn.xxyangyoulin.shiyue.data.bean;
 
+import java.io.Serializable;
+
 public class UserWrapper extends BaseBean {
 
     /**
@@ -16,7 +18,7 @@ public class UserWrapper extends BaseBean {
         this.data = data;
     }
 
-    public static class User {
+    public static class User implements Serializable{
         /**
          * username : admin
          * blogurl : http://xxyangyoulin.cn

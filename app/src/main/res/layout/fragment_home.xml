@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="xxyangyoulin"
+                android:text="@string/app_name"
                 android:textColor="#2b3036"
                 android:textSize="18sp" />
         </android.support.v7.widget.Toolbar>
@@ -37,20 +37,21 @@
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_avator"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:background="@color/colorPrimaryCustom"
+                android:background="@drawable/ripple_normal"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/civ_avator"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginTop="@dimen/margin_16dp"
-                    android:src="@drawable/image"
+                    android:src="@drawable/image_default_avator"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -226,7 +227,9 @@
             </LinearLayout>
         </LinearLayout>
 
-        <include layout="@layout/layout_state_page" android:id="@+id/layout_status" />
+        <include
+            android:id="@+id/layout_status"
+            layout="@layout/layout_state_page" />
 
     </LinearLayout>
 </ScrollView>

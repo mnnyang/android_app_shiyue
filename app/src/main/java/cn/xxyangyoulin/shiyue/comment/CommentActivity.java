@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -13,8 +12,7 @@ import java.util.ArrayList;
 
 import cn.xxyangyoulin.shiyue.R;
 import cn.xxyangyoulin.shiyue.base.BaseActivity;
-import cn.xxyangyoulin.shiyue.data.bean.Poem;
-import cn.xxyangyoulin.shiyue.poem.PoemAdapter;
+import cn.xxyangyoulin.shiyue.data.bean.PoemWrapper;
 
 import static cn.xxyangyoulin.shiyue.app.app.getContext;
 
@@ -45,9 +43,9 @@ public class CommentActivity extends BaseActivity {
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ArrayList<Poem> data = new ArrayList<>();
+        ArrayList<PoemWrapper> data = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            data.add(new Poem());
+            data.add(new PoemWrapper());
         }
 
 

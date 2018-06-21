@@ -1,6 +1,9 @@
 package cn.xxyangyoulin.shiyue.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.xxyangyoulin.shiyue.app.Constants;
+import cn.xxyangyoulin.shiyue.app.app;
+import cn.xxyangyoulin.shiyue.html5.Html5Activity;
+import cn.xxyangyoulin.shiyue.html5.LoginJavaScriptInterface;
 
 /**
  * Created by mnnyang on 17-11-8.
@@ -41,6 +49,30 @@ public class ActivityUtil {
             throw new NullPointerException(message);
         }
         return object;
+    }
+
+    /**
+     * 跳转到登录界面
+     */
+    public static void openLogonPage() {
+        Context context = app.getContext();
+        if (context == null) {
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(context, Html5Activity.class);
+            Bundle value = new Bundle();
+            value.putString("url", Constants.LOGIN_URL);
+            value.putString("title", "登录");
+
+            value.putSerializable("javascript", new LoginJavaScriptInterface());
+            intent.putExtra("bundle", value);
+            context.startActivity(intent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

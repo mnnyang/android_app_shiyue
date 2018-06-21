@@ -55,7 +55,7 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    public void toast(String s){
+    public void toast(String s) {
         ToastUtils.show(s);
     }
 
@@ -85,4 +85,6 @@ public abstract class BaseFragment extends Fragment {
             }
         });
     }
+
+
 }
